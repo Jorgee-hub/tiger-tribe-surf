@@ -211,7 +211,7 @@ function Hero() {
               willChange: "transform",
             }}
           >
-            {/* Tabla de surf SVG (sin drop-shadow) */}
+            {/* Tabla de surf SVG (naranja) */}
             <svg
               className="surfboard-svg"
               viewBox="0 0 600 140"
@@ -234,9 +234,9 @@ function Hero() {
                   x2="100%"
                   y2="0%"
                 >
-                  <stop offset="0%" stopColor="#87CEEB" />
-                  <stop offset="50%" stopColor="#4A90E2" />
-                  <stop offset="100%" stopColor="#2563EB" />
+                  <stop offset="0%" stopColor="#FFB088" />
+                  <stop offset="50%" stopColor="#FF6F3C" />
+                  <stop offset="100%" stopColor="#E85A2A" />
                 </linearGradient>
               </defs>
 
@@ -272,12 +272,12 @@ function Hero() {
               />
             </svg>
 
-            {/* Título centrado sobre la tabla */}
+            {/* Título centrado sobre la tabla (blanco) */}
             <h1
               className="display-3 fw-bold mb-0"
               style={{
                 ...tituloCartel,
-                color: colores.papaya,
+                color: "#FFFFFF",
                 perspective: 800,
                 position: "absolute",
                 top: "50%",
