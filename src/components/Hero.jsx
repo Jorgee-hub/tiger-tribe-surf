@@ -17,7 +17,7 @@ const WHATSAPP_PHONE = "50664787288";
 const WHATSAPP_MESSAGE =
   "Hi! I found you through your website and I'd like to book a surf lesson. When are you available?";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
-  WHATSAPP_MESSAGE
+  WHATSAPP_MESSAGE,
 )}`;
 
 function Hero() {
@@ -109,7 +109,7 @@ function Hero() {
         delay: 3.8,
       });
     },
-    { scope: containerRef }
+    { scope: containerRef },
   );
 
   const words = ["Tiger", "Tribe", "Surf"];
@@ -155,7 +155,7 @@ function Hero() {
           width: "100%",
           height: "100%",
           background:
-            "linear-gradient(180deg, rgba(14, 59, 67, 0.4) 0%, rgba(14, 59, 67, 0.2) 50%, rgba(14, 59, 67, 0.7) 100%)",
+            "linear-gradient(180deg, rgba(14, 59, 67, 0.25) 0%, rgba(14, 59, 67, 0.1) 50%, rgba(14, 59, 67, 0.5) 100%)",
           zIndex: 1,
         }}
       />
