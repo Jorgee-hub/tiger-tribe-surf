@@ -27,86 +27,106 @@ function Hero() {
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      // ---- 1. TABLA entra girando PRIMERO ----
-      gsap.from(".surfboard-svg", {
-        x: -600,
-        y: -400,
-        rotate: -180,
-        scale: 0.4,
+      // Timeline maestra para coordinar todo sin delays sueltos
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      // ---- 1. TABLA entra girando ----
+      tl.from(".surfboard-svg", {
+        x: -500,
+        y: -350,
+        rotate: -150,
+        scale: 0.5,
         opacity: 0,
-        duration: 1.4,
+        duration: 0.9,
         ease: "power3.out",
-        delay: 0.3,
-      });
+      })
 
-      // ---- 2. TÍTULO cae palabra por palabra ----
-      gsap.from(".hero-word", {
-        y: -150,
-        opacity: 0,
-        rotateX: -90,
-        duration: 0.8,
-        ease: "bounce.out",
-        stagger: 0.2,
-        delay: 1.5,
-      });
+        // ---- 2. TÍTULO cae palabra por palabra ----
+        .from(
+          ".hero-word",
+          {
+            y: -120,
+            opacity: 0,
+            rotateX: -90,
+            duration: 0.6,
+            ease: "bounce.out",
+            stagger: 0.12,
+          },
+          0.4,
+        )
 
-      // ---- 3. Location badge (después de la tabla) ----
-      gsap.from(".hero-location", {
-        opacity: 0,
-        y: -20,
-        duration: 0.6,
-        ease: "power3.out",
-        delay: 2.6,
-      });
+        // ---- 3. Location badge ----
+        .from(
+          ".hero-location",
+          {
+            opacity: 0,
+            y: -15,
+            duration: 0.5,
+            ease: "power3.out",
+          },
+          0.9,
+        )
 
-      // ---- 4. Flotación continua de la tabla ----
+        // ---- 4. Subtítulo ----
+        .from(
+          ".hero-subtitle",
+          {
+            opacity: 0,
+            y: 20,
+            duration: 0.5,
+            ease: "power3.out",
+          },
+          1.1,
+        )
+
+        // ---- 5. Spans del subtítulo ----
+        .from(
+          ".hero-subtitle span",
+          {
+            opacity: 0,
+            y: 10,
+            duration: 0.4,
+            ease: "power2.out",
+            stagger: 0.05,
+          },
+          1.3,
+        )
+
+        // ---- 6. Botón CTA ----
+        .from(
+          ".hero-cta",
+          {
+            opacity: 0,
+            y: 20,
+            scale: 0.9,
+            duration: 0.4,
+            ease: "back.out(1.5)",
+          },
+          1.5,
+        )
+
+        // ---- 7. Trust badges ----
+        .from(
+          ".hero-trust-item",
+          {
+            opacity: 0,
+            y: 15,
+            duration: 0.4,
+            ease: "power3.out",
+            stagger: 0.07,
+          },
+          1.7,
+        );
+
+      // ---- 8. Flotación continua (sin rotate, con force3D) ----
       gsap.to(".surfboard-container", {
         y: 8,
-        rotate: 1.5,
         duration: 3,
         ease: "sine.inOut",
         repeat: -1,
         yoyo: true,
-        delay: 3,
-      });
-
-      // ---- 5. Subtítulo ----
-      gsap.from(".hero-subtitle", {
-        opacity: 0,
-        y: 30,
-        duration: 0.9,
-        ease: "power3.out",
-        delay: 3,
-      });
-
-      // ---- 6. Spans del subtítulo ----
-      gsap.from(".hero-subtitle span", {
-        opacity: 0,
-        y: 15,
-        duration: 0.5,
-        ease: "power2.out",
-        stagger: 0.08,
-        delay: 3.2,
-      });
-
-      // ---- 7. Botón CTA ----
-      gsap.from(".hero-cta", {
-        opacity: 0,
-        y: 30,
-        scale: 0.9,
-        duration: 0.7,
-        ease: "back.out(1.5)",
-        delay: 3.5,
-      });
-
-      // ---- 8. Trust badges ----
-      gsap.from(".hero-trust-item", {
-        opacity: 0,
-        y: 20,
-        duration: 0.5,
-        ease: "power3.out",
-        stagger: 0.1,
-        delay: 3.8,
+        delay: 1.5,
+        force3D: true,
       });
     },
     { scope: containerRef },
@@ -142,6 +162,7 @@ function Hero() {
           height: "100%",
           objectFit: "cover",
           zIndex: 0,
+          willChange: "transform",
         }}
       />
 
@@ -190,7 +211,7 @@ function Hero() {
               willChange: "transform",
             }}
           >
-            {/* Tabla de surf SVG */}
+            {/* Tabla de surf SVG (sin drop-shadow) */}
             <svg
               className="surfboard-svg"
               viewBox="0 0 600 140"
@@ -203,7 +224,6 @@ function Hero() {
                 height: "100%",
                 zIndex: 0,
                 pointerEvents: "none",
-                filter: "drop-shadow(0 12px 20px rgba(0, 0, 0, 0.35))",
               }}
             >
               <defs>
@@ -214,9 +234,9 @@ function Hero() {
                   x2="100%"
                   y2="0%"
                 >
-                  <stop offset="0%" stopColor="#FFB088" />
-                  <stop offset="50%" stopColor="#FF6F3C" />
-                  <stop offset="100%" stopColor="#E85A2A" />
+                  <stop offset="0%" stopColor="#87CEEB" />
+                  <stop offset="50%" stopColor="#4A90E2" />
+                  <stop offset="100%" stopColor="#2563EB" />
                 </linearGradient>
               </defs>
 
@@ -254,10 +274,10 @@ function Hero() {
 
             {/* Título centrado sobre la tabla */}
             <h1
-              className="display-3 fw-bold text-white mb-0"
+              className="display-3 fw-bold mb-0"
               style={{
                 ...tituloCartel,
-                color: "#FFFFFF",
+                color: colores.papaya,
                 perspective: 800,
                 position: "absolute",
                 top: "50%",
@@ -292,12 +312,11 @@ function Hero() {
           </div>
         </div>
 
-        {/* ───── Location badge (arriba visualmente, pero aparece después) ───── */}
+        {/* ───── Location badge (sin backdrop-filter) ───── */}
         <div
           className="hero-location d-inline-flex align-items-center gap-2 mb-5 px-3 py-2"
           style={{
-            backgroundColor: "rgba(255, 255, 255, 0.15)",
-            backdropFilter: "blur(10px)",
+            backgroundColor: "rgba(14, 59, 67, 0.6)",
             border: "1px solid rgba(255, 255, 255, 0.3)",
             borderRadius: 0,
           }}
