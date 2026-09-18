@@ -27,59 +27,40 @@ function Hero() {
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      // Timeline maestra para coordinar todo sin delays sueltos
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // ---- 1. TABLA entra girando ----
-      tl.from(".surfboard-svg", {
-        x: -500,
-        y: -350,
-        rotate: -150,
-        scale: 0.5,
+      // ---- 1. Location badge ----
+      tl.from(".hero-location", {
         opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
+        y: -15,
+        duration: 0.6,
       })
 
         // ---- 2. TÍTULO cae palabra por palabra ----
         .from(
           ".hero-word",
           {
-            y: -120,
+            y: -80,
             opacity: 0,
-            rotateX: -90,
-            duration: 0.6,
+            duration: 0.7,
             ease: "bounce.out",
-            stagger: 0.12,
+            stagger: 0.15,
           },
-          0.4,
+          0.3,
         )
 
-        // ---- 3. Location badge ----
-        .from(
-          ".hero-location",
-          {
-            opacity: 0,
-            y: -15,
-            duration: 0.5,
-            ease: "power3.out",
-          },
-          0.9,
-        )
-
-        // ---- 4. Subtítulo ----
+        // ---- 3. Subtítulo ----
         .from(
           ".hero-subtitle",
           {
             opacity: 0,
             y: 20,
-            duration: 0.5,
-            ease: "power3.out",
+            duration: 0.6,
           },
-          1.1,
+          1.0,
         )
 
-        // ---- 5. Spans del subtítulo ----
+        // ---- 4. Spans del subtítulo ----
         .from(
           ".hero-subtitle span",
           {
@@ -87,47 +68,35 @@ function Hero() {
             y: 10,
             duration: 0.4,
             ease: "power2.out",
-            stagger: 0.05,
+            stagger: 0.06,
           },
-          1.3,
+          1.2,
         )
 
-        // ---- 6. Botón CTA ----
+        // ---- 5. Botón CTA ----
         .from(
           ".hero-cta",
           {
             opacity: 0,
             y: 20,
             scale: 0.9,
-            duration: 0.4,
+            duration: 0.5,
             ease: "back.out(1.5)",
           },
           1.5,
         )
 
-        // ---- 7. Trust badges ----
+        // ---- 6. Trust badges ----
         .from(
           ".hero-trust-item",
           {
             opacity: 0,
             y: 15,
-            duration: 0.4,
-            ease: "power3.out",
-            stagger: 0.07,
+            duration: 0.5,
+            stagger: 0.08,
           },
-          1.7,
+          1.8,
         );
-
-      // ---- 8. Flotación continua (sin rotate, con force3D) ----
-      gsap.to(".surfboard-container", {
-        y: 8,
-        duration: 3,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-        delay: 1.5,
-        force3D: true,
-      });
     },
     { scope: containerRef },
   );
@@ -176,7 +145,7 @@ function Hero() {
           width: "100%",
           height: "100%",
           background:
-            "linear-gradient(180deg, rgba(14, 59, 67, 0.25) 0%, rgba(14, 59, 67, 0.1) 50%, rgba(14, 59, 67, 0.5) 100%)",
+            "linear-gradient(180deg, rgba(14, 59, 67, 0.4) 0%, rgba(14, 59, 67, 0.25) 50%, rgba(14, 59, 67, 0.6) 100%)",
           zIndex: 1,
         }}
       />
@@ -191,133 +160,12 @@ function Hero() {
           paddingBottom: "4rem",
         }}
       >
-        {/* ───── TABLA + TÍTULO centrados ───── */}
+        {/* ───── Location badge ───── */}
         <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            width: "100%",
-            marginBottom: "2rem",
-          }}
-        >
-          <div
-            className="surfboard-container"
-            style={{
-              position: "relative",
-              display: "inline-block",
-              width: "100%",
-              maxWidth: "760px",
-              aspectRatio: "16 / 5",
-              willChange: "transform",
-            }}
-          >
-            {/* Tabla de surf SVG (naranja) */}
-            <svg
-              className="surfboard-svg"
-              viewBox="0 0 600 140"
-              preserveAspectRatio="xMidYMid meet"
-              aria-hidden="true"
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                zIndex: 0,
-                pointerEvents: "none",
-              }}
-            >
-              <defs>
-                <linearGradient
-                  id="surfboardGradient"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="0%"
-                >
-                  <stop offset="0%" stopColor="#FFB088" />
-                  <stop offset="50%" stopColor="#FF6F3C" />
-                  <stop offset="100%" stopColor="#E85A2A" />
-                </linearGradient>
-              </defs>
-
-              <path
-                d="M 40,70 
-                   C 40,30 110,10 200,10 
-                   L 420,10 
-                   C 520,10 575,35 575,70 
-                   C 575,105 520,130 420,130 
-                   L 200,130 
-                   C 110,130 40,110 40,70 Z"
-                fill="url(#surfboardGradient)"
-                stroke="#0E3B43"
-                strokeWidth="3"
-                strokeLinejoin="round"
-              />
-
-              <line
-                x1="55"
-                y1="70"
-                x2="560"
-                y2="70"
-                stroke="#FFFFFF"
-                strokeWidth="3.5"
-                opacity="0.9"
-                strokeLinecap="round"
-              />
-
-              <path
-                d="M 500,55 L 540,70 L 500,85 Z"
-                fill="#FFFFFF"
-                opacity="0.35"
-              />
-            </svg>
-
-            {/* Título centrado sobre la tabla (blanco) */}
-            <h1
-              className="display-3 fw-bold mb-0"
-              style={{
-                ...tituloCartel,
-                color: "#FFFFFF",
-                perspective: 800,
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                zIndex: 1,
-                margin: 0,
-                width: "100%",
-                whiteSpace: "nowrap",
-                fontSize: "clamp(1.8rem, 5.5vw, 4.2rem)",
-              }}
-              aria-label="Tiger Tribe Surf"
-            >
-              {words.map((word, i) => (
-                <span key={i} style={{ display: "inline-block" }}>
-                  <span
-                    className="hero-word"
-                    style={{
-                      display: "inline-block",
-                      willChange: "transform, opacity",
-                    }}
-                    aria-hidden="true"
-                  >
-                    {word}
-                  </span>
-                  {i < words.length - 1 && (
-                    <span style={{ display: "inline-block" }}>&nbsp;</span>
-                  )}
-                </span>
-              ))}
-            </h1>
-          </div>
-        </div>
-
-        {/* ───── Location badge (sin backdrop-filter) ───── */}
-        <div
-          className="hero-location d-inline-flex align-items-center gap-2 mb-5 px-3 py-2"
+          className="hero-location d-inline-flex align-items-center gap-2 mb-4 px-3 py-2"
           style={{
             backgroundColor: "rgba(14, 59, 67, 0.6)",
-            border: "1px solid rgba(255, 255, 255, 0.3)",
+            border: "1px solid rgba(255, 255, 255, 0.25)",
             borderRadius: 0,
           }}
         >
@@ -325,7 +173,7 @@ function Hero() {
             style={{
               fontSize: "0.85rem",
               fontWeight: 600,
-              letterSpacing: "0.05em",
+              letterSpacing: "0.1em",
               textTransform: "uppercase",
             }}
           >
@@ -333,13 +181,44 @@ function Hero() {
           </span>
         </div>
 
+        {/* ───── Título ───── */}
+        <h1
+          className="display-2 fw-bold mb-4"
+          style={{
+            ...tituloCartel,
+            color: "#FFFFFF",
+            fontSize: "clamp(2.5rem, 8vw, 6rem)",
+            lineHeight: 1.05,
+          }}
+          aria-label="Tiger Tribe Surf"
+        >
+          {words.map((word, i) => (
+            <span key={i} style={{ display: "inline-block" }}>
+              <span
+                className="hero-word"
+                style={{
+                  display: "inline-block",
+                  willChange: "transform, opacity",
+                }}
+                aria-hidden="true"
+              >
+                {word}
+              </span>
+              {i < words.length - 1 && (
+                <span style={{ display: "inline-block" }}>&nbsp;</span>
+              )}
+            </span>
+          ))}
+        </h1>
+
         {/* ───── Subtítulo ───── */}
         <p
-          className="hero-subtitle lead fw-bold text-white mb-4"
+          className="hero-subtitle fs-4 mb-5 text-white"
           style={{
             textShadow: "2px 2px 6px rgba(0, 0, 0, 0.8)",
             maxWidth: "48ch",
-            margin: "0 auto 2rem",
+            margin: "0 auto 2.5rem",
+            fontWeight: 500,
           }}
         >
           <span className="text-primary">Ride the</span> warm waters{" "}
